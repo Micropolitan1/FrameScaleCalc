@@ -1,67 +1,102 @@
+Below is an updated version with more polished styling, a cohesive color scheme, and a clearly integrated link to the referenced frames. I've added a subtle gradient background, improved the overall layout, and included a footer with a clear call-to-action link to the resource mentioned.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
     <title>Micropolitan Frame Scaling Calculator</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Helvetica Neue", Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            padding: 0;
+            background: linear-gradient(135deg, #e2e2e2 25%, #ffffff 100%);
         }
         .container {
             max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
         }
         h1 {
             color: #333;
             text-align: center;
+            margin-bottom: 30px;
+            font-weight: 500;
         }
-        label {
+        form label {
             display: block;
-            margin-top: 10px;
+            margin-top: 20px;
+            font-weight: 500;
+            color: #333;
         }
         input[type="number"] {
             width: 100%;
-            padding: 8px;
-            margin-top: 5px;
+            padding: 10px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
         }
         button {
             display: block;
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
         }
         button:hover {
             background-color: #45a049;
         }
         #result {
-            margin-top: 20px;
+            margin-top: 30px;
             font-weight: bold;
             text-align: center;
+            font-size: 1.2em;
+            color: #333;
         }
         .note {
             font-size: 0.9em;
             color: #666;
             margin-top: 5px;
         }
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #555;
+        }
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .description {
+            text-align: center;
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Micropolitan Frame Scaling Calculator</h1>
+        <p class="description">Use this tool to calculate the scaling percentage needed for printable frames to fit your 3D map models snugly.</p>
         <form id="calculatorForm">
             <label for="frameInterior">Frame Interior Dimension (mm):</label>
             <input type="number" id="frameInterior" required step="0.1">
@@ -71,11 +106,15 @@
 
             <label for="desiredMargin">Desired Margin (mm):</label>
             <input type="number" id="desiredMargin" value="1.0" required step="0.1">
-            <p class="note">Recommended margin: around 0.5 mm to allow the 3D Map to fit snugly in the frame with a small margin.</p>
+            <p class="note">Recommended margin: around 0.5 mm to ensure a snug fit.</p>
 
             <button type="button" onclick="calculateScale()">Calculate</button>
         </form>
         <div id="result"></div>
+
+        <footer>
+            <p>Need frames to scale? Check out these <a href="https://than.gs/m/1148299" target="_blank" rel="noopener noreferrer">3D printable frames</a> for your Micropolitan project.</p>
+        </footer>
     </div>
 
     <script>
@@ -84,14 +123,20 @@
             const printDimension = parseFloat(document.getElementById('printDimension').value);
             const desiredMargin = parseFloat(document.getElementById('desiredMargin').value);
 
+            if (isNaN(frameInterior) || isNaN(printDimension) || isNaN(desiredMargin)) {
+                document.getElementById('result').textContent = "Please fill in all fields correctly.";
+                return;
+            }
+
             const scaleFactor = ((printDimension + desiredMargin) / frameInterior) * 100;
             const scalePercentage = scaleFactor.toFixed(2);
 
             const resultElement = document.getElementById('result');
             resultElement.innerHTML = `
-                <p>Scale the X and Y (and optionally Z) dimensions of the frame by ${scalePercentage}%</p>
+                Scale the X and Y (and optionally Z) dimensions of the frame by <strong>${scalePercentage}%</strong>
             `;
         }
     </script>
 </body>
 </html>
+```
